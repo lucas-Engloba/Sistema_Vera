@@ -187,7 +187,7 @@ namespace Mercado_Vera.Dao
         }
 
 
-        public void DeleteItemVenda(string valor, string nome, int prodId, int vendId, int qtdRemover, int qtdProduto)
+        public void DeleteItemVenda(string valor, string nome, int prodId, int vendId, int qtdRemover, int qtdProduto, decimal valorTotal)
         {
             SqlConnection con = new SqlConnection(conexao.StrConexao());
 
@@ -199,6 +199,7 @@ namespace Mercado_Vera.Dao
             cmd.Parameters.AddWithValue("@PRODID", prodId);
             cmd.Parameters.AddWithValue("@QTD", qtdProduto);
             cmd.Parameters.AddWithValue("@QTDREMOVER", qtdRemover);
+            cmd.Parameters.AddWithValue("@VALORTOTAL", valorTotal);
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();

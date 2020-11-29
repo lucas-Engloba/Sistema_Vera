@@ -79,7 +79,7 @@ namespace Mercado_Vera.View.GerVenda
 
                     //qtdRemover = removerQtd.qtd;
 
-                    daoVenda.DeleteItemVenda(valor, lblCliente.Text, int.Parse(idProd), int.Parse(lblId.Text), int.Parse(qtdRemover), int.Parse(qtdProduto));
+                    daoVenda.DeleteItemVenda(valor, lblCliente.Text, int.Parse(idProd), int.Parse(lblId.Text), int.Parse(qtdRemover), int.Parse(qtdProduto), decimal.Parse(lblValor.Text));
                     AtualizarDg();
                 }
             }
