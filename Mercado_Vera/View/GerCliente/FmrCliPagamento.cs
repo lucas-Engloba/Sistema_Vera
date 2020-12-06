@@ -58,7 +58,7 @@ namespace Mercado_Vera.View.GerCliente
             {
                 if (cbxPag.Text == "")
                 {
-                    MessageBox.Show("A caixa de pagamento não pode ser vazia!");
+                    MessageBox.Show("O campo de pagamento não pode ser vazio!");
                 }
                 else
                 {
@@ -73,14 +73,16 @@ namespace Mercado_Vera.View.GerCliente
                     {
                         credito = decimal.Parse(txtValor.Text);
                     }
-                    else
+                    else if(cbxPag.Text == "Dinheiro")
                     {
                         dinheiro = decimal.Parse(txtValor.Text);
                     }
+
                     Venda venda = new Venda(lblId.Text, "0", txtValor.Text,date.ToString(),cbxPag.Text,cbxBand.Text,"0");
                      Pagamento pagamento = new Pagamento(debito,credito,dinheiro,0);
                     daoPagamento.InsertPagCrediario(venda);
                     daoPagamento.InsertPagamento(pagamento,"pagamento");
+
 
                     MessageBox.Show("Pagamento confirmado!");
                     this.Close();

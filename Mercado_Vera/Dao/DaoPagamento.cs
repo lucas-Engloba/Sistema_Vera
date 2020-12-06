@@ -71,6 +71,12 @@ namespace Mercado_Vera.Dao
                 idVenda = conexao.SelecioneId(query);
             }
 
+            if (tipo == "pagamento")
+            {
+                string query = "SELECT MAX(VEN_ID) FROM TBL_VENDA";
+                idVenda = conexao.SelecioneId(query);
+            }
+
             SqlConnection con = new SqlConnection(conexao.StrConexao());
             SqlCommand cmd1 = con.CreateCommand();
  
@@ -89,7 +95,7 @@ namespace Mercado_Vera.Dao
             }
             else
             {
-                cmd1.Parameters.Add(new SqlParameter("@ID", DBNull.Value));
+                cmd1.Parameters.Add(new SqlParameter("@ID", idVenda));
             }
             con.Open();
             SqlTransaction tran = con.BeginTransaction();
