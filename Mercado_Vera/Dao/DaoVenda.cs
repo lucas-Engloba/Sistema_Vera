@@ -135,7 +135,7 @@ namespace Mercado_Vera.Dao
         public DataTable SelectVendaDia(string data)
         {
             string query = "SELECT V.VEN_DATE, V.VEN_PAGAMENTO, V.VEN_PARCELA, V.VEN_TOTAL, V.VEN_ID, C.CLI_NOME FROM TBL_VENDA AS V "
-                + "INNER JOIN TBL_CLIENTE AS C ON C.CLI_ID = V.CLI_ID WHERE VEN_DATE = '" + data + "'";
+                + "INNER JOIN TBL_CLIENTE AS C ON C.CLI_ID = V.CLI_ID WHERE VEN_DATE = '" + data + "' AND  V.VEN_TOTAL > 0";
             return conexao.CarregarDados(query);
         }
         public SqlDataReader RetornaResumo(string date)
@@ -187,19 +187,19 @@ namespace Mercado_Vera.Dao
         }
 
 
-        public void DeleteItemVenda(string valor, string nome, int prodId, int vendId, int qtdRemover, int qtdProduto, decimal valorTotal)
+        public void DeleteItemVenda(string valor, string nome, int prodId, int vendId, int qtdRemover, int qtdTotalProduto, decimal valorTotalVenda)
         {
             SqlConnection con = new SqlConnection(conexao.StrConexao());
 
             SqlCommand cmd = new SqlCommand("p_REMOVER_ITEM", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@VALOR", valor.ToString().Replace(',', '.'));
-            cmd.Parameters.AddWithValue("@NOME", nome);
+            cmd.Parameters.AddWithValue("@VALOR_TOTAL_ITEM", valor.ToString().Replace(',', '.'));
+            cmd.Parameters.AddWithValue("@NOME_CLIENTE", nome);
             cmd.Parameters.AddWithValue("@VENDAID", vendId);
             cmd.Parameters.AddWithValue("@PRODID", prodId);
-            cmd.Parameters.AddWithValue("@QTD", qtdProduto);
+            cmd.Parameters.AddWithValue("@QTD_TOTAL_ITEM", qtdTotalProduto);
             cmd.Parameters.AddWithValue("@QTDREMOVER", qtdRemover);
-            cmd.Parameters.AddWithValue("@VALORTOTAL", valorTotal);
+            cmd.Parameters.AddWithValue("@VALOR_TOTAL_VENDA", valorTotalVenda);
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();

@@ -32,7 +32,7 @@
             this.lblCliente = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnExcluir = new System.Windows.Forms.Button();
-            this.btnRemover = new System.Windows.Forms.Button();
+            this.btnDevolucao = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Clmn_Produto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PROD_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,7 +76,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.btnExcluir);
-            this.panel1.Controls.Add(this.btnRemover);
+            this.panel1.Controls.Add(this.btnDevolucao);
             this.panel1.Controls.Add(this.dataGridView1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 80);
@@ -96,16 +96,16 @@
             this.btnExcluir.UseVisualStyleBackColor = true;
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
-            // btnRemover
+            // btnDevolucao
             // 
-            this.btnRemover.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemover.Location = new System.Drawing.Point(474, 290);
-            this.btnRemover.Name = "btnRemover";
-            this.btnRemover.Size = new System.Drawing.Size(88, 30);
-            this.btnRemover.TabIndex = 1;
-            this.btnRemover.Text = "Remover";
-            this.btnRemover.UseVisualStyleBackColor = true;
-            this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
+            this.btnDevolucao.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDevolucao.Location = new System.Drawing.Point(474, 290);
+            this.btnDevolucao.Name = "btnDevolucao";
+            this.btnDevolucao.Size = new System.Drawing.Size(88, 30);
+            this.btnDevolucao.TabIndex = 1;
+            this.btnDevolucao.Text = "Devolucao";
+            this.btnDevolucao.UseVisualStyleBackColor = true;
+            this.btnDevolucao.Click += new System.EventHandler(this.btnRemover_Click);
             // 
             // dataGridView1
             // 
@@ -232,7 +232,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "FmrRemoverVenda";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = " ";
+            this.Text = "\'";
             this.Load += new System.EventHandler(this.FmrRemoverVenda_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -252,7 +252,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnExcluir;
-        private System.Windows.Forms.Button btnRemover;
+        private System.Windows.Forms.Button btnDevolucao;
         private System.Windows.Forms.Label lblCliente;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
