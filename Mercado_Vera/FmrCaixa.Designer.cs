@@ -398,9 +398,8 @@
             this.lblPagamento.ForeColor = System.Drawing.Color.White;
             this.lblPagamento.Location = new System.Drawing.Point(3, 27);
             this.lblPagamento.Name = "lblPagamento";
-            this.lblPagamento.Size = new System.Drawing.Size(72, 24);
+            this.lblPagamento.Size = new System.Drawing.Size(0, 24);
             this.lblPagamento.TabIndex = 5;
-            this.lblPagamento.Text = "CAIXA";
             // 
             // label21
             // 

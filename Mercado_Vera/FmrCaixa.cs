@@ -239,7 +239,7 @@ namespace Mercado_Vera
                     pagCrediario = decimal.Parse(lblSubTotal.Text) - pagCredito - pagDebito - pagDinheiro;
                 }
             }
-            else if (dualPagamento == true && pagamento != "")
+            else if (dualPagamento == true && pagamento.Contains("Crédito") || pagamento.Contains("Débito") || pagamento.Contains("Dinheiro"))
             {
                 buscaCli.ShowDialog();
 
@@ -463,7 +463,7 @@ namespace Mercado_Vera
             {
                 ResetarPagamento();
                 lblPagamento.Text = "DINHEIRO";
-                pagamento = "Dinheiro";
+                pagamento = " Dinheiro ";
                 txtDinheiro.BackColor = System.Drawing.Color.LimeGreen;
                 lblRsDinheiro.Visible = true;
                 txtDinheiro.Enabled = true;
@@ -621,7 +621,7 @@ namespace Mercado_Vera
             txtDinheiro.Enabled = false;
             lblTotalRec.Text = "0,00";
             lblTroco.Text = "0,00";
-            lblPagamento.Text = "CAIXA";
+            lblPagamento.Text = "";
         }
 
         public void LimparDados()
