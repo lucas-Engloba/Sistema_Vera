@@ -103,7 +103,7 @@
             this.btnDevolucao.Name = "btnDevolucao";
             this.btnDevolucao.Size = new System.Drawing.Size(88, 30);
             this.btnDevolucao.TabIndex = 1;
-            this.btnDevolucao.Text = "Devolucao";
+            this.btnDevolucao.Text = "Devolução";
             this.btnDevolucao.UseVisualStyleBackColor = true;
             this.btnDevolucao.Click += new System.EventHandler(this.btnRemover_Click);
             // 

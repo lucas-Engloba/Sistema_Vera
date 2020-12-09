@@ -98,17 +98,21 @@ namespace Mercado_Vera.View.GerCliente
 
         private void txtValor_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //este campo aceita somente uma virgula
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
+            if (e.KeyChar == '.' || e.KeyChar == ',')
+            {
+                e.KeyChar = ',';
+
+                //Verifica se já existe alguma vírgula na string
+                if (txtValor.Text.Contains(","))
+                    e.Handled = true; // Caso exista, aborte 
+
+            }
+            //aceita apenas números, tecla backspace e virgula.
+            else if (!char.IsNumber(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
             {
                 e.Handled = true;
-                MessageBox.Show("este campo aceita somente numero e virgula");
             }
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-                MessageBox.Show("este campo aceita somente uma virgula");
-            }
+
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -247,6 +247,7 @@
             this.txtQtdMin.Size = new System.Drawing.Size(96, 24);
             this.txtQtdMin.TabIndex = 22;
             this.txtQtdMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtQtdMin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQtdMin_KeyPress);
             // 
             // label4
             // 
@@ -286,6 +287,7 @@
             this.txtQtd.Size = new System.Drawing.Size(104, 24);
             this.txtQtd.TabIndex = 14;
             this.txtQtd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtQtd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQtd_KeyPress);
             // 
             // groupBox1
             // 
@@ -308,6 +310,7 @@
             this.txtVenda.Size = new System.Drawing.Size(105, 24);
             this.txtVenda.TabIndex = 19;
             this.txtVenda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtVenda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtVenda_KeyPress);
             // 
             // label5
             // 
@@ -328,6 +331,7 @@
             this.txtPreco.Size = new System.Drawing.Size(105, 24);
             this.txtPreco.TabIndex = 17;
             this.txtPreco.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPreco.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPreco_KeyPress);
             // 
             // label6
             // 

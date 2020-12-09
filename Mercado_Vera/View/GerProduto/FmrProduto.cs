@@ -156,7 +156,6 @@ namespace Mercado_Vera
             if (char.IsNumber(e.KeyChar))
             {
                 e.Handled = true;
-                MessageBox.Show("Este campo aceita letras e espaços!");
             }
         }
 
@@ -169,7 +168,6 @@ namespace Mercado_Vera
             if (!char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
-                MessageBox.Show("Este campo aceita somente numero!");
             }
         }
 
@@ -182,39 +180,46 @@ namespace Mercado_Vera
             if (!char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
-                MessageBox.Show("Este campo aceita somente numero!");
             }
         }
 
         private void txtPreco_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //este campo aceita somente uma virgula
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
+            if (e.KeyChar == '.' || e.KeyChar == ',')
+            {
+                e.KeyChar = ',';
+
+                //Verifica se já existe alguma vírgula na string
+                if (txtPreco.Text.Contains(","))
+                    e.Handled = true; // Caso exista, aborte 
+
+            }
+            //aceita apenas números, tecla backspace e virgula.
+            else if (!char.IsNumber(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
             {
                 e.Handled = true;
-                MessageBox.Show("este campo aceita somente numero e virgula");
             }
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-                MessageBox.Show("este campo aceita somente uma virgula");
-            }
+
 
         }
 
         private void txtVenda_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //este campo aceita somente uma virgula
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
+            if (e.KeyChar == '.' || e.KeyChar == ',')
+            {
+                e.KeyChar = ',';
+
+                //Verifica se já existe alguma vírgula na string
+                if (txtVenda.Text.Contains(","))
+                    e.Handled = true; // Caso exista, aborte 
+
+            }
+            //aceita apenas números, tecla backspace e virgula.
+            else if (!char.IsNumber(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
             {
                 e.Handled = true;
-                MessageBox.Show("este campo aceita somente numero e virgula");
             }
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-                MessageBox.Show("este campo aceita somente uma virgula");
-            }
+
         }
 
         private void txtCodigo_KeyPress(object sender, KeyPressEventArgs e)

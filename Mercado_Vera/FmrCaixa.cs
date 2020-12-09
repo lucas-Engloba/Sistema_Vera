@@ -14,6 +14,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Mercado_Vera
@@ -944,16 +945,19 @@ namespace Mercado_Vera
 
         private void txtDinheiro_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //este campo aceita somente uma virgula
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
+            if (e.KeyChar == '.' || e.KeyChar == ',')
             {
-                e.Handled = true;
-                MessageBox.Show("este campo aceita somente numero e virgula");
+                e.KeyChar = ',';
+
+                //Verifica se já existe alguma vírgula na string
+                if (txtDinheiro.Text.Contains(","))
+                    e.Handled = true; // Caso exista, aborte 
+
             }
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            //aceita apenas números, tecla backspace e virgula.
+            else if (!char.IsNumber(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
             {
                 e.Handled = true;
-                MessageBox.Show("este campo aceita somente uma virgula");
             }
 
             if (e.KeyChar == 13 && txtDinheiro.Text != "" && dualPagamento == false)
@@ -966,9 +970,6 @@ namespace Mercado_Vera
                 {
                     txtDinheiro.BackColor = System.Drawing.Color.Lime;
                     btnFin.Focus();
-
-                    //decimal troco = decimal.Parse(txtDinheiro.Text) - decimal.Parse(lblSubTotal.Text);                                    
-                    //lblTroco.Text = troco.ToString();
                 }
 
             }
@@ -1303,18 +1304,20 @@ namespace Mercado_Vera
 
         private void txtDebit_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            //este campo aceita somente uma virgula
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
+            if (e.KeyChar == '.' || e.KeyChar == ',')
             {
-                e.Handled = true;
-                MessageBox.Show("este campo aceita somente numero e virgula");
-            }
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-                MessageBox.Show("este campo aceita somente uma virgula");
-            }
+                e.KeyChar = ',';
 
+                //Verifica se já existe alguma vírgula na string
+                if (txtDebit.Text.Contains(","))
+                    e.Handled = true; // Caso exista, aborte 
+
+            }
+            //aceita apenas números, tecla backspace e virgula.
+            else if (!char.IsNumber(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
         }
 
         private void txtDebit_KeyUp_1(object sender, KeyEventArgs e)
@@ -1367,18 +1370,21 @@ namespace Mercado_Vera
 
         private void txtCredito_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //este campo aceita somente uma virgula
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
-            {
-                e.Handled = true;
-                MessageBox.Show("este campo aceita somente numero e virgula");
-            }
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-                MessageBox.Show("este campo aceita somente uma virgula");
-            }
 
+            if (e.KeyChar == '.' || e.KeyChar == ',')
+            {
+                e.KeyChar = ',';
+
+                //Verifica se já existe alguma vírgula na string
+                if (txtCredito.Text.Contains(","))
+                    e.Handled = true; // Caso exista, aborte 
+
+            }
+            //aceita apenas números, tecla backspace e virgula.
+            else if (!char.IsNumber(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
         }
 
         private void btnDual_Click(object sender, EventArgs e)

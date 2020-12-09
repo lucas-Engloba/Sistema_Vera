@@ -56,7 +56,6 @@ namespace Mercado_Vera.View.GerVenda
             if (!char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
-                MessageBox.Show("Este campo aceita somente numero!");
             }
         }
     }
