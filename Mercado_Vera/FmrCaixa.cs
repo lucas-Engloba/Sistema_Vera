@@ -51,7 +51,9 @@ namespace Mercado_Vera
 
         private static decimal pagDebito, pagCredito, pagDinheiro, pagCrediario, pagTotal;
         private bool dualPagamento = false;
+        int pagamentoContador;
 
+         
 
         public FmrCaixa()
         {
@@ -59,6 +61,7 @@ namespace Mercado_Vera
             panelFinalizar.Visible = false;
             panelCredito.Visible = false;
             BtnVenda.Focus();
+
         }
 
         private void FmrCaixa_Load(object sender, EventArgs e)
@@ -131,6 +134,7 @@ namespace Mercado_Vera
 
         public void adicionarQuantidade()
         {
+      
             LimparDadosVenda();
 
             txtQtd.BackColor = System.Drawing.Color.LightSteelBlue;
@@ -192,11 +196,6 @@ namespace Mercado_Vera
                     int qtdProd = Convert.ToInt32(this.dataGridView2.CurrentRow.Cells[4].Value);
                     daoVenda.UpdateEstoqueAdicionar(idProd, qtdProd, codProd);//Adiciona ao estoque o produto removido
 
-                    #region Remover pelo ID expressão Lambida
-                    //var itemToRemove = listaItens.Single(r => r.ProdId == idProd);
-                    //listaItens.Remove(itemToRemove);
-                    #endregion
-
                     int indice = this.dataGridView2.CurrentRow.Index;
                     listaItens.RemoveAt(indice);
 
@@ -241,15 +240,37 @@ namespace Mercado_Vera
             }
             else if (dualPagamento == true && pagamento.Contains("Crédito") || pagamento.Contains("Débito") || pagamento.Contains("Dinheiro"))
             {
-                buscaCli.ShowDialog();
+                decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro + pagCrediario;
 
-                lblClienteID.Text = buscaCli.id;
-                lblNomeCli.Text = buscaCli.nome;
-                if (lblClienteID.Text != "")
+                if (somaPagamento == 0 && pagamentoContador > 0)
                 {
-                    lblPagamento.Text = "CREDIÁRIO";
-                    pagamento += " Crediário ";
-                    pagCrediario = decimal.Parse(lblSubTotal.Text) - pagCredito - pagDebito - pagDinheiro;
+                    ResetarPagamento();
+                    dualPagamento = true;
+                    MessageBox.Show("Ao realizar a função de pagamento em duas vezes, deixe o pagamento em crediário por ultimo!");
+                }
+                else
+                {
+                    if (pagamentoContador == 2)
+                    {
+                        MessageBox.Show("Já existe duas formas de pagamento selecionadas!");
+                    }
+                    else if (pagamento.Contains("Crediário"))
+                    {
+                        MessageBox.Show("O pagamento em crediário já foi selecionado!");
+                    }
+                    else
+                    {
+                        buscaCli.ShowDialog();
+
+                        lblClienteID.Text = buscaCli.id;
+                        lblNomeCli.Text = buscaCli.nome;
+                        if (lblClienteID.Text != "")
+                        {
+                            lblPagamento.Text = "CREDIÁRIO";
+                            pagamento += " Crediário ";
+                            pagCrediario = decimal.Parse(lblSubTotal.Text) - pagCredito - pagDebito - pagDinheiro;
+                        }
+                    }
                 }
             }
             else
@@ -313,9 +334,6 @@ namespace Mercado_Vera
                             daoVenda.UpdateCrediario(lblClienteID.Text, pagTotal.ToString());
                         }
 
-                        MessageBox.Show("Venda Finalizada !");
-
-
                         dataGridView2.Rows.Clear();//limpa o datagrid e mantem o header
                         statusVenda = "Fechada";
 
@@ -343,6 +361,10 @@ namespace Mercado_Vera
 
                 }
             }
+            else if (pagTotal < decimal.Parse(lblTotal2.Text))
+            {
+                MessageBox.Show("O valor a ser pago é a abaixo do valor de venda!");
+            }
             else
             {
                 MessageBox.Show("Selecione a forma de pagamento!", "Forma de pagamento.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -351,35 +373,57 @@ namespace Mercado_Vera
 
         public void Credito()
         {
+            decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro  + pagCrediario;
+
             if (dualPagamento == true)
             {
-                pagamento += " Crédito ";
-                txtParcela.BackColor = System.Drawing.Color.LightSteelBlue;
-                panelCredito.Visible = true;
-                panelCredito.Height = 395;
-                panelDebito.Height = 0;
-                txtDinheiro.BackColor = System.Drawing.Color.Lime;
-                bandeira = cbxBandCred.Text;
-                lblPagamento.Text += " CRÉDITO ";
-                txtCredito.Focus();
-                txtCredito.Visible = true;
-
-                decimal soma = pagDebito + pagDinheiro;
-                if (soma > 0)
+                if (pagamentoContador == 2)
                 {
-                    decimal res = decimal.Parse(lblSubTotal.Text) - soma;
-                    txtCredito.Text = res.ToString();
-                    txtCredito.Enabled = false;
-                    txtParcela.Text = "1";
-                    parcelas = "1";
-                    lblCredit.Text = res.ToString();
-                    lblCredito.Text = res.ToString();
-                    pagCredito = res;
-
-                    res += decimal.Parse(lblTotalRec.Text);
-                    lblTotalRec.Text = res.ToString();
+                    MessageBox.Show("Já existe duas formas de pagamento selecionadas!");
                 }
 
+                else if (pagamento.Contains("Crédito"))
+                {
+                    MessageBox.Show("O pagamento em crédito já foi selecionado!");
+                }
+                else 
+                {
+                    if (somaPagamento == 0 && pagamentoContador > 0)
+                    {
+                        ResetarPagamento();
+                        dualPagamento = true;
+                    }
+
+                    pagamentoContador++;
+
+                    pagamento += " Crédito ";
+                    txtParcela.BackColor = System.Drawing.Color.LightSteelBlue;
+                    panelCredito.Visible = true;
+                    panelCredito.Height = 395;
+                    panelDebito.Height = 0;
+                    txtDinheiro.BackColor = System.Drawing.Color.Lime;
+                    bandeira = cbxBandCred.Text;
+                    lblPagamento.Text += " CRÉDITO ";
+                    txtCredito.Focus();
+                    txtCredito.Visible = true;
+
+                    
+                    decimal soma = pagDebito + pagDinheiro;
+                    if (soma > 0)
+                    {
+                        decimal res = decimal.Parse(lblSubTotal.Text) - soma;
+                        txtCredito.Text = res.ToString();
+                        txtCredito.Enabled = false;
+                        txtParcela.Text = "1";
+                        parcelas = "1";
+                        lblCredit.Text = res.ToString();
+                        lblCredito.Text = res.ToString();
+                        pagCredito = res;
+
+                        res += decimal.Parse(lblTotalRec.Text);
+                        lblTotalRec.Text = res.ToString();
+                    }
+                }
             }
             else
             {
@@ -396,34 +440,52 @@ namespace Mercado_Vera
                 lblCredito.Text = lblSubTotal.Text;
                 txtParcela.Focus();
             }
-
-
-
         }
 
         public void Debito()
         {
+            decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro + pagCrediario;
+
             if (dualPagamento == true)
             {
-                pagamento += " Débito ";
-                panelDebito.Height = 395;
-                panelCredito.Height = 0;
-                lblCredit.Visible = true;
-                lblPagamento.Text = pagamento;
-                txtDebit.Visible = true;
-                txtDebit.Focus();
-
-                decimal soma = pagCredito + pagDinheiro;
-                if (soma > 0)
+                if (pagamentoContador == 2)
                 {
-                    decimal res = decimal.Parse(lblSubTotal.Text) - soma;
-                    txtDebit.Text = res.ToString();
-                    txtDebit.Enabled = false;
-                    pagDebito = res;
-                    lblDebito.Text = res.ToString();
+                    MessageBox.Show("Já existe duas formas de pagamento selecionadas!");
+                }
+                else if (pagamento.Contains("Débito"))
+                {
+                    MessageBox.Show("O pagamento em débito já foi selecionado!");
+                }
+                else
+                {
+                    if (somaPagamento == 0 && pagamentoContador > 0)
+                    {
+                        ResetarPagamento();
+                        dualPagamento = true;
+                    }
 
-                    res += decimal.Parse(lblTotalRec.Text);
-                    lblTotalRec.Text = res.ToString();
+                    pagamentoContador++;
+
+                    pagamento += " Débito ";
+                    panelDebito.Height = 395;
+                    panelCredito.Height = 0;
+                    lblCredit.Visible = true;
+                    lblPagamento.Text = pagamento;
+                    txtDebit.Visible = true;
+                    txtDebit.Focus();
+
+                    decimal soma = pagCredito + pagDinheiro;
+                    if (soma > 0)
+                    {
+                        decimal res = decimal.Parse(lblSubTotal.Text) - soma;
+                        txtDebit.Text = res.ToString();
+                        txtDebit.Enabled = false;
+                        pagDebito = res;
+                        lblDebito.Text = res.ToString();
+
+                        res += decimal.Parse(lblTotalRec.Text);
+                        lblTotalRec.Text = res.ToString();
+                    }
                 }
             }
             else
@@ -444,19 +506,40 @@ namespace Mercado_Vera
 
         public void Dinheiro()
         {
+            decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro + pagCrediario;
+
             if (dualPagamento == true)
             {
-                pagamento += " Dinheiro ";
-                txtDinheiro.BackColor = System.Drawing.Color.LimeGreen;
-                lblRsDinheiro.Visible = true;
-                txtDinheiro.Enabled = true;
-                txtDinheiro.Focus();
-
-                decimal soma = pagCredito + pagDebito;
-                if (soma > 0)
+                if (pagamentoContador == 2)
                 {
-                    decimal res = decimal.Parse(lblSubTotal.Text) - soma;
-                    txtDinheiro.Text = res.ToString();
+                    MessageBox.Show("Já existe duas formas de pagamento selecionadas!");
+                }
+                else if (pagamento.Contains("Dinheiro"))
+                {
+                    MessageBox.Show("O pagamento em dinheiro já foi selecionado!");
+                }
+                else
+                {
+                    if (somaPagamento == 0 && pagamentoContador > 0)
+                    {
+                        ResetarPagamento();
+                        dualPagamento = true;
+                    }
+
+                    pagamentoContador++;
+
+                    pagamento += " Dinheiro ";
+                    txtDinheiro.BackColor = System.Drawing.Color.LimeGreen;
+                    lblRsDinheiro.Visible = true;
+                    txtDinheiro.Enabled = true;
+                    txtDinheiro.Focus();
+
+                    decimal soma = pagCredito + pagDebito;
+                    if (soma > 0)
+                    {
+                        decimal res = decimal.Parse(lblSubTotal.Text) - soma;
+                        txtDinheiro.Text = res.ToString();
+                    }
                 }
             }
             else
@@ -521,7 +604,7 @@ namespace Mercado_Vera
         {
             if (dataGridView2.RowCount > 0)
             {
-                MessageBox.Show("A venda está em aberto! Para poder sair cancele a venda na tela de pagamento.", "Venda em aberto.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("A venda está em aberto! Para poder sair, cancele a venda na tela de pagamento.", "Venda em aberto.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
@@ -554,7 +637,6 @@ namespace Mercado_Vera
             }
         }
 
-        //preenche datagridview com as informações do produto
         public void PrencheDg()
         {
             dataGridView2.Rows.Add(lblProdID.Text, txtBarra.Text, lblPod.Text, lblValorUni.Text, qtd, lblTotaltem.Text);
@@ -564,9 +646,8 @@ namespace Mercado_Vera
 
             dataGridView2.ClearSelection();
             dataGridView2.CurrentCell = null;
-            //int rowindex = dataGridView2.CurrentCell.RowIndex;
         }
-        //pega o ID e a qantidade do produto para armazenar em uma lista
+
         public void GetProdDg()
         {
             ItemVenda itemVenda = new ItemVenda(lblProdID.Text, lblTotaltem.Text, qtd);
@@ -607,6 +688,7 @@ namespace Mercado_Vera
             bandeira = "";
             parcelas = "";
             pagamento = "";
+            pagamentoContador = 0;
             panelDebito.Height = 10;
             panelCredito.Height = 10;
             lblClienteID.Text = "1";
@@ -668,6 +750,7 @@ namespace Mercado_Vera
             pagamento = "";
             txtDebit.Text = "";
             txtCredito.Text = "";
+            pagamentoContador = 0;
         }
 
         public void LimparDadosVenda()
