@@ -53,7 +53,7 @@ namespace Mercado_Vera
         private bool dualPagamento = false;
         int pagamentoContador;
 
-         
+
 
         public FmrCaixa()
         {
@@ -134,7 +134,7 @@ namespace Mercado_Vera
 
         public void adicionarQuantidade()
         {
-      
+
             LimparDadosVenda();
 
             txtQtd.BackColor = System.Drawing.Color.LightSteelBlue;
@@ -308,7 +308,7 @@ namespace Mercado_Vera
 
 
                         Pagamento pag = new Pagamento(pagDebito, pagCredito, pagDinheiro, pagCrediario);
-                        DaoPagamento.InsertPagamento(pag,"venda");
+                        DaoPagamento.InsertPagamento(pag, "venda");
 
 
                         foreach (ItemVenda V in listaItens)
@@ -373,7 +373,7 @@ namespace Mercado_Vera
 
         public void Credito()
         {
-            decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro  + pagCrediario;
+            decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro + pagCrediario;
 
             if (dualPagamento == true)
             {
@@ -386,7 +386,7 @@ namespace Mercado_Vera
                 {
                     MessageBox.Show("O pagamento em crédito já foi selecionado!");
                 }
-                else 
+                else
                 {
                     if (somaPagamento == 0 && pagamentoContador > 0)
                     {
@@ -403,23 +403,28 @@ namespace Mercado_Vera
                     panelDebito.Height = 0;
                     txtDinheiro.BackColor = System.Drawing.Color.Lime;
                     bandeira = cbxBandCred.Text;
-                    lblPagamento.Text += " CRÉDITO ";
-                    txtCredito.Focus();
+                    lblPagamento.Text += " Crédito ";
                     txtCredito.Visible = true;
+                    txtParcela.Focus();
 
-                    
+                    if (pagamentoContador == 1)
+                    {
+                        txtCredito.Enabled = true;
+                        txtCredito.Focus();
+                    }
+
+
                     decimal soma = pagDebito + pagDinheiro;
                     if (soma > 0)
                     {
                         decimal res = decimal.Parse(lblSubTotal.Text) - soma;
                         txtCredito.Text = res.ToString();
                         txtCredito.Enabled = false;
-                        txtParcela.Text = "1";
-                        parcelas = "1";
                         lblCredit.Text = res.ToString();
                         lblCredito.Text = res.ToString();
                         pagCredito = res;
-
+                        txtParcela.Enabled = true;
+                        txtParcela.Focus();
                         res += decimal.Parse(lblTotalRec.Text);
                         lblTotalRec.Text = res.ToString();
                     }
@@ -427,7 +432,6 @@ namespace Mercado_Vera
             }
             else
             {
-                ResetarPagamento();
                 txtParcela.BackColor = System.Drawing.Color.LightSteelBlue;
                 panelCredito.Visible = true;
                 panelDebito.Height = 0;
@@ -438,6 +442,7 @@ namespace Mercado_Vera
                 lblPagamento.Text += " CRÉDITO ";
                 lblValorCred.Text = lblSubTotal.Text;
                 lblCredito.Text = lblSubTotal.Text;
+                txtCredito.Text = lblSubTotal.Text;
                 txtParcela.Focus();
             }
         }
@@ -472,7 +477,13 @@ namespace Mercado_Vera
                     lblCredit.Visible = true;
                     lblPagamento.Text = pagamento;
                     txtDebit.Visible = true;
-                    txtDebit.Focus();
+          
+
+                    if(pagamentoContador == 1)
+                    {
+                        txtDebit.Enabled = true;
+                        txtDebit.Focus();
+                    }
 
                     decimal soma = pagCredito + pagDinheiro;
                     if (soma > 0)
@@ -498,7 +509,8 @@ namespace Mercado_Vera
                 lblValorDebito.Text = lblSubTotal.Text;
                 bandeira = cbxBandeira.Text;
                 pagamento = "Débito";
-                lblPagamento.Text = "DÉBITO";
+                lblPagamento.Text = "Débito";
+                txtDebit.Text = lblSubTotal.Text;
                 pagDebito = decimal.Parse(lblValorDebito.Text);
             }
 
@@ -704,6 +716,10 @@ namespace Mercado_Vera
             lblTotalRec.Text = "0,00";
             lblTroco.Text = "0,00";
             lblPagamento.Text = "";
+            pagCrediario = 0;
+            pagCredito = 0;
+            pagDebito = 0;
+            pagDinheiro = 0;
         }
 
         public void LimparDados()
@@ -751,6 +767,7 @@ namespace Mercado_Vera
             txtDebit.Text = "";
             txtCredito.Text = "";
             pagamentoContador = 0;
+            ResetarPagamento();
         }
 
         public void LimparDadosVenda()
