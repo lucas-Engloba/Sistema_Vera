@@ -413,7 +413,7 @@ namespace Mercado_Vera
                         txtCredito.Focus();
                     }
 
-
+                    //Comit
                     decimal soma = pagDebito + pagDinheiro;
                     if (soma > 0)
                     {
