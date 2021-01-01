@@ -537,6 +537,8 @@
             this.txtDinheiro.Name = "txtDinheiro";
             this.txtDinheiro.Size = new System.Drawing.Size(99, 28);
             this.txtDinheiro.TabIndex = 2;
+            this.txtDinheiro.Enter += new System.EventHandler(this.txtDinheiro_Enter);
+            this.txtDinheiro.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDinheiro_KeyDown);
             this.txtDinheiro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDinheiro_KeyPress);
             this.txtDinheiro.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDinheiro_KeyUp);
             // 

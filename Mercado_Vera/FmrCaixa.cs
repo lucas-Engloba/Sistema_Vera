@@ -373,7 +373,7 @@ namespace Mercado_Vera
 
         public void Credito()
         {
-            decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro + pagCrediario;
+            decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro + pagDebito;
 
             if (dualPagamento == true)
             {
@@ -394,11 +394,11 @@ namespace Mercado_Vera
                         dualPagamento = true;
                     }
 
-                    pagamentoContador++;
 
                     pagamento += " Crédito ";
                     txtParcela.BackColor = System.Drawing.Color.LightSteelBlue;
                     panelCredito.Visible = true;
+                    txtCredito.Enabled = false;
                     panelCredito.Height = 395;
                     panelDebito.Height = 0;
                     txtDinheiro.BackColor = System.Drawing.Color.Lime;
@@ -406,6 +406,9 @@ namespace Mercado_Vera
                     lblPagamento.Text += " Crédito ";
                     txtCredito.Visible = true;
                     txtParcela.Focus();
+
+
+                    pagamentoContador++;
 
                     if (pagamentoContador == 1)
                     {
@@ -449,7 +452,7 @@ namespace Mercado_Vera
 
         public void Debito()
         {
-            decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro + pagCrediario;
+            decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro + pagDebito;
 
             if (dualPagamento == true)
             {
@@ -469,21 +472,23 @@ namespace Mercado_Vera
                         dualPagamento = true;
                     }
 
-                    pagamentoContador++;
-
                     pagamento += " Débito ";
                     panelDebito.Height = 395;
                     panelCredito.Height = 0;
                     lblCredit.Visible = true;
+                    txtDebit.Enabled = false;
                     lblPagamento.Text = pagamento;
                     txtDebit.Visible = true;
-          
 
-                    if(pagamentoContador == 1)
+                    pagamentoContador++;
+
+                    if (pagamentoContador == 1)
                     {
                         txtDebit.Enabled = true;
                         txtDebit.Focus();
                     }
+
+
 
                     decimal soma = pagCredito + pagDinheiro;
                     if (soma > 0)
@@ -518,7 +523,7 @@ namespace Mercado_Vera
 
         public void Dinheiro()
         {
-            decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro + pagCrediario;
+            decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro + pagDinheiro;
 
             if (dualPagamento == true)
             {
@@ -713,9 +718,13 @@ namespace Mercado_Vera
             lblDebito.Text = "0,00";
             lblCredito.Text = "0,00";
             txtDinheiro.Enabled = false;
+            txtDebit.Enabled = false;
+            txtCredito.Enabled = false;
             lblTotalRec.Text = "0,00";
             lblTroco.Text = "0,00";
             lblPagamento.Text = "";
+            txtDebit.Text = "";
+            txtCredito.Text = "";
             pagCrediario = 0;
             pagCredito = 0;
             pagDebito = 0;
@@ -1434,6 +1443,15 @@ namespace Mercado_Vera
 
         }
 
+        private void txtDinheiro_Enter(object sender, EventArgs e)
+        {
+        }
+
+        private void txtDinheiro_KeyDown(object sender, KeyEventArgs e)
+        {
+            lblTotalRec.Text = txtDinheiro.Text;
+        }
+
         private void txtDinheiro_KeyUp(object sender, KeyEventArgs e)
         {
             if (txtDinheiro.Text != "" && dualPagamento == true)
@@ -1464,7 +1482,6 @@ namespace Mercado_Vera
                 {
                     pagDinheiro = decimal.Parse(txtDinheiro.Text);
                 }
-
             }
         }
 
