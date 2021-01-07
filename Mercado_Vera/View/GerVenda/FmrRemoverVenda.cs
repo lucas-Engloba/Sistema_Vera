@@ -13,7 +13,7 @@ namespace Mercado_Vera.View.GerVenda
 {
     public partial class FmrRemoverVenda : Form
     {
-        string valor ="", idProd="", nomeProd="", qtdProduto="";
+        string valor ="", idProd="", nomeProd="", qtdProduto="",itemVendaId;
         public static string qtdRemover;
 
         DaoVenda daoVenda = new DaoVenda();
@@ -103,6 +103,7 @@ namespace Mercado_Vera.View.GerVenda
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            itemVendaId = Convert.ToString(this.dataGridView1.CurrentRow.Cells["ITEM_VENDA_ID"].Value);
             idProd = Convert.ToString(this.dataGridView1.CurrentRow.Cells["PROD_ID"].Value);
             nomeProd = Convert.ToString(this.dataGridView1.CurrentRow.Cells["Clmn_Produto"].Value);
             valor = Convert.ToString(this.dataGridView1.CurrentRow.Cells["Colmn_Valor"].Value);

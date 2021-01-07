@@ -34,16 +34,17 @@
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnDevolucao = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Clmn_Produto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PROD_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Colmn_Qtd = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Colmn_Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Clmn_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblId = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lblValor = new System.Windows.Forms.Label();
+            this.Clmn_Produto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ITEM_VENDA_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PROD_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Colmn_Qtd = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Colmn_Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Clmn_Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -115,6 +116,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Clmn_Produto,
+            this.ITEM_VENDA_ID,
             this.PROD_ID,
             this.Colmn_Qtd,
             this.Colmn_Valor,
@@ -125,45 +127,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(649, 257);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            // 
-            // Clmn_Produto
-            // 
-            this.Clmn_Produto.DataPropertyName = "PROD_NOME";
-            this.Clmn_Produto.HeaderText = "Produto";
-            this.Clmn_Produto.Name = "Clmn_Produto";
-            this.Clmn_Produto.ReadOnly = true;
-            this.Clmn_Produto.Width = 366;
-            // 
-            // PROD_ID
-            // 
-            this.PROD_ID.DataPropertyName = "PROD_ID";
-            this.PROD_ID.HeaderText = "IdProd";
-            this.PROD_ID.Name = "PROD_ID";
-            this.PROD_ID.ReadOnly = true;
-            this.PROD_ID.Visible = false;
-            // 
-            // Colmn_Qtd
-            // 
-            this.Colmn_Qtd.DataPropertyName = "ITEM_QTD";
-            this.Colmn_Qtd.HeaderText = "Qtd.";
-            this.Colmn_Qtd.Name = "Colmn_Qtd";
-            this.Colmn_Qtd.ReadOnly = true;
-            this.Colmn_Qtd.Width = 70;
-            // 
-            // Colmn_Valor
-            // 
-            this.Colmn_Valor.DataPropertyName = "ITEM_VALOR";
-            this.Colmn_Valor.HeaderText = "Valor";
-            this.Colmn_Valor.Name = "Colmn_Valor";
-            this.Colmn_Valor.ReadOnly = true;
-            this.Colmn_Valor.Width = 70;
-            // 
-            // Clmn_Data
-            // 
-            this.Clmn_Data.DataPropertyName = "VEN_DATE";
-            this.Clmn_Data.HeaderText = "Data";
-            this.Clmn_Data.Name = "Clmn_Data";
-            this.Clmn_Data.ReadOnly = true;
             // 
             // groupBox2
             // 
@@ -220,6 +183,53 @@
             this.lblValor.TabIndex = 2;
             this.lblValor.Text = "00,00";
             // 
+            // Clmn_Produto
+            // 
+            this.Clmn_Produto.DataPropertyName = "PROD_NOME";
+            this.Clmn_Produto.HeaderText = "Produto";
+            this.Clmn_Produto.Name = "Clmn_Produto";
+            this.Clmn_Produto.ReadOnly = true;
+            this.Clmn_Produto.Width = 366;
+            // 
+            // ITEM_VENDA_ID
+            // 
+            this.ITEM_VENDA_ID.DataPropertyName = "ITEM_VENDA_ID";
+            this.ITEM_VENDA_ID.HeaderText = "ItemId";
+            this.ITEM_VENDA_ID.Name = "ITEM_VENDA_ID";
+            this.ITEM_VENDA_ID.ReadOnly = true;
+            this.ITEM_VENDA_ID.Visible = false;
+            // 
+            // PROD_ID
+            // 
+            this.PROD_ID.DataPropertyName = "PROD_ID";
+            this.PROD_ID.HeaderText = "IdProd";
+            this.PROD_ID.Name = "PROD_ID";
+            this.PROD_ID.ReadOnly = true;
+            this.PROD_ID.Visible = false;
+            // 
+            // Colmn_Qtd
+            // 
+            this.Colmn_Qtd.DataPropertyName = "ITEM_QTD";
+            this.Colmn_Qtd.HeaderText = "Qtd.";
+            this.Colmn_Qtd.Name = "Colmn_Qtd";
+            this.Colmn_Qtd.ReadOnly = true;
+            this.Colmn_Qtd.Width = 70;
+            // 
+            // Colmn_Valor
+            // 
+            this.Colmn_Valor.DataPropertyName = "ITEM_VALOR";
+            this.Colmn_Valor.HeaderText = "Valor";
+            this.Colmn_Valor.Name = "Colmn_Valor";
+            this.Colmn_Valor.ReadOnly = true;
+            this.Colmn_Valor.Width = 70;
+            // 
+            // Clmn_Data
+            // 
+            this.Clmn_Data.DataPropertyName = "VEN_DATE";
+            this.Clmn_Data.HeaderText = "Data";
+            this.Clmn_Data.Name = "Clmn_Data";
+            this.Clmn_Data.ReadOnly = true;
+            // 
             // FmrRemoverVenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -260,6 +270,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblValor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Clmn_Produto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ITEM_VENDA_ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn PROD_ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Colmn_Qtd;
         private System.Windows.Forms.DataGridViewTextBoxColumn Colmn_Valor;

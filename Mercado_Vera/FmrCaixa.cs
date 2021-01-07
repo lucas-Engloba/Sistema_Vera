@@ -240,7 +240,7 @@ namespace Mercado_Vera
             }
             else if (dualPagamento == true && pagamento.Contains("Crédito") || pagamento.Contains("Débito") || pagamento.Contains("Dinheiro"))
             {
-                decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro + pagCrediario;
+                decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro + pagDebito;
 
                 if (somaPagamento == 0 && pagamentoContador > 0)
                 {
@@ -266,7 +266,7 @@ namespace Mercado_Vera
                         lblNomeCli.Text = buscaCli.nome;
                         if (lblClienteID.Text != "")
                         {
-                            lblPagamento.Text = "CREDIÁRIO";
+                            lblPagamento.Text += "Crediário";
                             pagamento += " Crediário ";
                             pagCrediario = decimal.Parse(lblSubTotal.Text) - pagCredito - pagDebito - pagDinheiro;
                         }
@@ -442,7 +442,7 @@ namespace Mercado_Vera
                 txtDinheiro.BackColor = System.Drawing.Color.Lime;
                 bandeira = cbxBandCred.Text;
                 pagamento = " Crédito ";
-                lblPagamento.Text += " CRÉDITO ";
+                lblPagamento.Text += " Crédito ";
                 lblValorCred.Text = lblSubTotal.Text;
                 lblCredito.Text = lblSubTotal.Text;
                 txtCredito.Text = lblSubTotal.Text;
@@ -477,7 +477,7 @@ namespace Mercado_Vera
                     panelCredito.Height = 0;
                     lblCredit.Visible = true;
                     txtDebit.Enabled = false;
-                    lblPagamento.Text = pagamento;
+                    lblPagamento.Text = " Débito ";
                     txtDebit.Visible = true;
 
                     pagamentoContador++;
@@ -523,7 +523,7 @@ namespace Mercado_Vera
 
         public void Dinheiro()
         {
-            decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro + pagDinheiro;
+            decimal somaPagamento = pagCredito + pagCrediario + pagDinheiro + pagDebito;
 
             if (dualPagamento == true)
             {
@@ -706,29 +706,37 @@ namespace Mercado_Vera
             parcelas = "";
             pagamento = "";
             pagamentoContador = 0;
-            panelDebito.Height = 10;
-            panelCredito.Height = 10;
-            lblClienteID.Text = "1";
-            lblNomeCli.Text = "CLIENTE - 1";
-            cbxBandCred.Text = null;
-            cbxBandeira.Text = null;
-            txtDinheiro.Text = "";
-            txtDinheiro.BackColor = System.Drawing.Color.Lime;
-            lblRsDinheiro.Visible = false;
-            lblDebito.Text = "0,00";
-            lblCredito.Text = "0,00";
-            txtDinheiro.Enabled = false;
-            txtDebit.Enabled = false;
-            txtCredito.Enabled = false;
-            lblTotalRec.Text = "0,00";
-            lblTroco.Text = "0,00";
-            lblPagamento.Text = "";
-            txtDebit.Text = "";
-            txtCredito.Text = "";
             pagCrediario = 0;
             pagCredito = 0;
             pagDebito = 0;
             pagDinheiro = 0;
+
+            panelDebito.Height = 10;
+            panelCredito.Height = 10;
+
+            cbxBandCred.Text = null;
+            cbxBandeira.Text = null;
+            txtDinheiro.Text = "";
+            txtDinheiro.BackColor = System.Drawing.Color.Lime;
+            txtParcela.Text = "";
+            txtDebit.Text = "";
+            txtDinheiro.Enabled = false;
+            txtDebit.Enabled = false;
+            txtCredito.Enabled = false;
+            txtParcela.Text = "";
+            txtDinheiro.Enabled = false;
+            txtDebit.Enabled = false;
+            txtCredito.Enabled = false;
+
+            lblRsDinheiro.Visible = false;
+            lblDebito.Text = "0,00";
+            lblCredito.Text = "0,00";
+            lblCredit.Text = "0,00";
+            lblTotalRec.Text = "0,00";
+            lblTroco.Text = "0,00";
+            lblPagamento.Text = "";
+            lblClienteID.Text = "1";
+            lblNomeCli.Text = "CLIENTE - 1";
         }
 
         public void LimparDados()
