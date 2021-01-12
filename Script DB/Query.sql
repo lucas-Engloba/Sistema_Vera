@@ -1,5 +1,46 @@
 USE MERCADO_01
 
+
+use MERCADO_01
+
+
+select CLI_NOME, CLI_DIVIDA from TBL_CLIENTE
+select * from TBL_ITEM_VENDA
+select * from TBL_PAGAMENTO
+select * from TBL_VENDA
+
+update TBL_CLIENTE set CLI_DIVIDA = 0.00 where CLI_ID = 1
+delete from TBL_PAGAMENTO where VENDA_ID = 5
+delete from TBL_VENDA where VEN_ID = 5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 SELECT * FROM TBL_PRODUTO
 SELECT * FROM TBL_FECHAMENTO
 SELECT * FROM TBL_PROD_FORN

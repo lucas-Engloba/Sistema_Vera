@@ -784,6 +784,7 @@ namespace Mercado_Vera
             txtDebit.Text = "";
             txtCredito.Text = "";
             pagamentoContador = 0;
+            listaItens.Clear();
             ResetarPagamento();
         }
 
